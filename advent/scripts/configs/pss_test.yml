@@ -1,0 +1,36 @@
+SOURCE: VOC
+TARGET: personal
+ARCH: 'resnet50'
+EXP_NAME: "release_test"
+VOC_GROUP: True
+PERSON_GROUP: True
+GPOCR: True
+VOC_GP_LIST: "list/train_cluster500.txt"
+PERSON_LIST: "train_cluster80.txt"
+PERSON_ID: 7
+BATCH_SIZE: 8
+RES_GROUP: False
+WEIGHT_GROUP: False
+# NUM_WORKERS: 0
+TRAIN:
+  DA_METHOD: AdvEnt
+  MODEL: psp
+  RESTORE_FROM: ''
+  MULTI_LEVEL: True
+  LAMBDA_SEG_AUX: 0.4
+  AUXFORADV: True
+  LAMBDA_ADV_MAIN: 0.001
+  LAMBDA_ADV_AUX: 0.0002
+  INPUT_SIZE_SOURCE: [320, 320]
+  INPUT_SIZE_TARGET: [320, 320]
+  SAVE_PRED_EVERY: 2000
+TEST:
+  EXT: 'release-test'
+  FULLMAP: True
+  ENTRANK: False
+  MODE: single
+  # MODE: best
+  MODEL: ["psp"]
+  SNAPSHOT_STEP: 2000
+  SAVE_PRED: True
+  RESTORE_FROM: ''

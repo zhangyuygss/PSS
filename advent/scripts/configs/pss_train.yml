@@ -1,0 +1,35 @@
+SOURCE: VOC
+TARGET: personal
+EXP_NAME: "id1-res50-pss"
+ARCH: 'vgg16'
+VOC_GROUP: True
+PERSON_GROUP: True
+GPOCR: True
+VOC_GP_LIST: "list/train_cluster500.txt"
+# FAKELB_LIST: "entrank/easy_split.txt"
+PERSON_LIST: "train_cluster80.txt"
+VAL_LIST: "val_all.txt"
+PERSON_ID: 20
+BATCH_SIZE: 8
+RES_GROUP: False
+WEIGHT_GROUP: False
+NUM_WORKERS: 8
+TRAIN:
+  DA_METHOD: AdvEnt
+  MODEL: psp
+  RESTORE_FROM: ./pretrained_models/DeepLab_resnet_pretrained_imagenet.pth
+  MULTI_LEVEL: True
+  LAMBDA_SEG_AUX: 0.4
+  AUXFORADV: True
+  LAMBDA_ADV_MAIN: 0.001
+  LAMBDA_ADV_AUX: 0.0002
+  INPUT_SIZE_SOURCE: [320, 320]
+  INPUT_SIZE_TARGET: [320, 320]
+  SAVE_PRED_EVERY: 2000
+TEST:
+  MODE: best
+  EXT: 'valonall'
+  SAVE_PRED: True
+  FULLMAP: True
+  MODEL: ["psp"]
+

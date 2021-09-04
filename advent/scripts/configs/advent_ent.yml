@@ -1,0 +1,37 @@
+SOURCE: VOC
+TARGET: personal
+EXP_NAME: "id6-psp-advent-spup"
+# EXP_NAME: "id6-imocr_withgpinfo-auxadv-btscale8"
+VOC_GROUP: False
+PERSON_GROUP: False
+GPOCR: False
+VOC_GP_LIST: "list/train_cluster200.txt"
+PERSON_LIST: "train_cluster40.txt"
+# VOC_GP_LIST: "list/train_aug.txt"
+# PERSON_LIST: "train.txt"
+PERSON_ID: 4
+BATCH_SIZE: 6
+RES_GROUP: False
+WEIGHT_GROUP: False
+NUM_WORKERS: 0
+TRAIN:
+  DA_METHOD: AdvEnt
+  MODEL: psp
+  RESTORE_FROM: ./pretrained_models/DeepLab_resnet_pretrained_imagenet.pth
+  MULTI_LEVEL: False
+  LAMBDA_SEG_AUX: 0.4
+  AUXFORADV: False
+  LAMBDA_ADV_MAIN: 0.001
+  LAMBDA_ADV_AUX: 0.0002
+  INPUT_SIZE_SOURCE: [500, 400]
+  INPUT_SIZE_TARGET: [640, 480]
+  # INPUT_SIZE_SOURCE: [320, 320]
+  # INPUT_SIZE_TARGET: [320, 320]
+  SAVE_PRED_EVERY: 2000
+TEST:
+  MODE: best
+  EXT: 'valonall'
+  SAVE_PRED: True
+  MODEL: ["psp"]
+  RESTORE_FROM: 44000
+

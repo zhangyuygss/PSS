@@ -1,0 +1,20 @@
+SOURCE: PersonEasy
+TARGET: PersonHard
+DATA_DIRECTORY_SOURCE: ../ADVENT/data/Cityscapes
+DATA_LIST_SOURCE: ../entropy_rank/easy_split.txt
+DATA_LIST_TARGET: ../entropy_rank/hard_split.txt
+EXP_NAME: "intra-advent-gp"
+NUM_WORKERS: 1
+TRAIN:
+  INPUT_SIZE_SOURCE:
+    - 320
+    - 320
+  DA_METHOD: AdvEnt
+  MODEL: psp
+  RESTORE_FROM: ./pretrained_models/DeepLab_resnet_pretrained_imagenet.pth
+  MULTI_LEVEL: False
+  LAMBDA_ADV_MAIN: 0.001
+  LAMBDA_ADV_AUX: 0.0002
+  SAVE_PRED_EVERY: 1000
+TEST:
+  MODE: best
