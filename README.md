@@ -37,8 +37,16 @@ Make a new directory to put datasets and results:
 makedir ./data
 ```
 
-#### Datasets
-You shold download our [PSS dataset]() and put them under `./data/personal`.
+#### Dataset
+You shold download our [PSS dataset]() and put them under `./data/personal`.  
+
+#### Dataset License: 
+Our dataset is made available only for academic research. 
+Although we have obtained the personalized photos' copyright, 
+the user's privacy is still important.
+If you want to get access to our data, please send me a request 
+from your school or company email.
+The request should include the purpose of using our dataset.
 
 #### Pre-trained models
 Our pretrained models can be downloaded [here]().
