@@ -47,6 +47,8 @@ the user's privacy is still important.
 If you want to get access to our data, please send me a request 
 from your school or company email.
 The request should include the purpose of using our dataset.
+Thank you for your understanding.
+
 
 #### Pre-trained models
 Our pretrained models can be downloaded [here]().
