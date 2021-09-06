@@ -82,4 +82,4 @@ line153 of script `./test.py`.
 
 
 ## License
-PSS code is released under the [Apache 2.0 license](./LICENSE).
+PSS code is released under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License for NonCommercial use only. Any commercial use should get formal permission first.
