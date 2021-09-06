@@ -51,7 +51,7 @@ Thank you for your understanding.
 
 
 #### Pre-trained models
-Our pretrained models can be downloaded [here]().
+Our pretrained models can be downloaded [here](https://drive.google.com/drive/folders/10lN19h9OgyDLgyBaGz-Hi69_EMs2IhUs?usp=sharing).
 We provide the step2 models that finetuned with pseudo labels, which are
 reported as `OURS-S2` in the paper.
 Download and put them under `./data/final_res50_step2`.
