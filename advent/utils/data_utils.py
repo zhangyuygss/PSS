@@ -114,20 +114,42 @@ def rename_imgs(root_dir):
     sgclsdir, sgobdir = pjoin(root_dir, 'SegmentationClass'), pjoin(root_dir, 'SegmentationObject')
     list_file = pjoin(root_dir, 'imgLabelList.txt')
     lines = open(list_file, 'r').readlines()
-    img_lst = os.path.join(imgdir)
-    new_lines = []
-    for l in tqdm(lines):
+    img2label = dict()
+    for l in lines:
         im_name = l.split(':')[0].split('/')[-1]
+        img2label[im_name] = l.split(':')[1]
+    img_lst = os.listdir(imgdir)
+    new_lines, name_map = [], dict()
+    for img in tqdm(img_lst):
+        im_name = img.split('.jpg')[0]
         new_name = ''.join(random_string(10))
+        name_map[im_name] = new_name
         shutil.move(pjoin(imgdir, im_name + '.jpg'), pjoin(imgdir, new_name + '.jpg'))
         try:
             shutil.move(pjoin(sgclsdir, im_name + '.png'), pjoin(sgclsdir, new_name + '.png'))
             shutil.move(pjoin(sgobdir, im_name + '.png'), pjoin(sgobdir, new_name + '.png'))
         except FileNotFoundError: pass
-        new_lines.append("{}.jpg:{}".format(new_name, l.split(':')[1]))
+        new_lines.append("{}.jpg:{}".format(new_name, img2label.get(im_name, 'UNKNOWN\n')))
     with open(pjoin(root_dir, 'imgLabelListnew.txt'), 'w') as f:
         for l in new_lines:
             f.write(l)
+    pkl.dump(name_map, open(pjoin(root_dir, 'img_name_mapping.pkl'), 'wb'))
+    
+    # late processing for id1 and id2
+    def _rename_imgs_in_list(list_name):
+        new_lines = []
+        with open(list_name, 'r') as f:
+            for l in f.readlines():
+                pre_name = l.split(' ')[0].split('/')[-1].split('.')[0]
+                cluster_id = l.split(' ')[-1]
+                new_name = name_map[pre_name]
+                new_l = "/JPEGImages/{}.jpg /SegmentationClass/{}.png {}".format(new_name, new_name, cluster_id)
+                new_lines.append(new_l)
+        with open(list_name, 'w') as f:  # overwrite pre-list
+            for l in new_lines: f.write(l)
+
+    _rename_imgs_in_list(pjoin(root_dir, 'val_all.txt'))
+    _rename_imgs_in_list(pjoin(root_dir, 'train_cluster80.txt'))
 
 
 def colorize_data(root_dir, lst):
@@ -171,17 +193,17 @@ def get_val_statistics(val_dir):
 
 if __name__ == "__main__":
     from pre_cluster import clust_images
-    root_dir = '/disk1/datasets/personal'
+    root_dir = 'data/personal'
 
 
     num_gps = [10]  # [1, 10, 20, 100, 200]
-    for i in range(1, 16):
+    for i in range(1, 3):
         sub_root = os.path.join(root_dir, 'id{}'.format(i))
-        # rename_imgs(sub_root)  # rename image files
+        rename_imgs(sub_root)  # rename image files
         # colorize_data(sub_root, os.listdir(os.path.join(sub_root, 'SegmentationClass')))
         # get_val_list(sub_root, 'val_all.txt')
-        for ngp in num_gps:
-            clust_images(os.path.join(sub_root, 'JPEGImages'), sub_root, num_gp=ngp)
+        # for ngp in num_gps:
+        #     clust_images(os.path.join(sub_root, 'JPEGImages'), sub_root, num_gp=ngp)
         # get_val_statistics(os.path.join(sub_root, 'SegmentationClass'))
     
     # sub_root = "/disk1/datasets/VOCdevkit/VOC2012"
