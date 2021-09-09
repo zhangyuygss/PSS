@@ -44,11 +44,11 @@ You shold download our [PSS dataset]() and put them under `./data/personal`.
 Our dataset is made available only for academic research. 
 Although we have obtained the personalized photos' copyright, 
 the user's privacy is still important.
-If you want to get access to our data, please send me a request  
-from your school or company email. （pt.jiang@mail.nankai.edu.cn）
+If you want to get access to our data, please send me a request 
+from your school or company email. 
 The request should include the purpose of using our dataset.
 Thank you for your understanding.
-
+（pt.jiang AT mail.nankai.edu.cn）
 
 #### Pre-trained models
 Our pretrained models can be downloaded [here](https://drive.google.com/drive/folders/10lN19h9OgyDLgyBaGz-Hi69_EMs2IhUs?usp=sharing).
